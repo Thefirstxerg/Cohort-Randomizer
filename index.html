@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cohort Randomizer</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -18,8 +21,18 @@
         <button class="randomizer-button" onclick="randomizeCohort()">Randomize</button>
         <div class="result" id="result"></div>
     </div>
+    <div class="sidebar-right">
+        <h2>Description</h2>
+        <p>This application helps to randomize cohorts by adding names and then randomizing them into groups. You can add names on the left side-bar and then select them by clicking.</p>
+        <h2>Updates</h2>
+        <div id="updates">
+            <!-- Updates will be posted here -->
+            <p>[2025-02-26 16:49] - Added caching to save the list of names between sessions.</p>
+            <p>[2025-02-26 17:07] - Added a sidebar on the right side</p>
+            <p>[2025-02-26 17:12] - Added a description and updates section</p>
+        </div>
+    </div>
 
-    <script src="cohortRandomizer.js">
-    </script>
+    <script src="cohortRandomizer.js"></script>
 </body>
-</html>
+</html></div>

@@ -14,7 +14,19 @@ function addName(name = null) {
 
     if (!name) {
         document.getElementById('nameInput').value = '';
+        saveNameToLocalStorage(nameInput);
     }
+}
+
+function saveNameToLocalStorage(name) {
+    let names = JSON.parse(localStorage.getItem('names')) || [];
+    names.push(name);
+    localStorage.setItem('names', JSON.stringify(names));
+}
+
+function loadNamesFromLocalStorage() {
+    let names = JSON.parse(localStorage.getItem('names')) || [];
+    names.forEach(name => addName(name));
 }
 
 function randomizeCohort() {
@@ -63,4 +75,5 @@ function randomizeCohort() {
 window.onload = () => {
     const defaultNames = ['Aidan', 'Cadee', 'Courtney', 'Ethan', 'Lesedi', 'Lindo', 'Marvelous', 'Mieke', 'Phomello', 'Pierre', 'Ronny', 'Sibu', 'Tom', 'Ulrich'];
     defaultNames.sort().forEach(name => addName(name));
+    loadNamesFromLocalStorage();
 };
