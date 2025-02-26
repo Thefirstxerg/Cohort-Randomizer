@@ -21,7 +21,8 @@
         <button class="randomizer-button" onclick="randomizeCohort()">Randomize</button>
         <div class="result" id="result"></div>
     </div>
-    <div class="sidebar-right">
+    <div class="sidebar-right" id="sidebarRight">
+        <button class="toggle-button" onclick="toggleSidebar()">Toggle Sidebar</button>
         <h2>Description</h2>
         <p>This application helps to randomize cohorts by adding names and then randomizing them into groups. You can add names on the left side-bar and then select them by clicking.</p>
         <h2>Updates</h2>
@@ -30,9 +31,16 @@
             <p>[2025-02-26 16:49] - Added caching to save the list of names between sessions.</p>
             <p>[2025-02-26 17:07] - Added a sidebar on the right side</p>
             <p>[2025-02-26 17:12] - Added a description and updates section</p>
+            <p>[2025-02-26 18:13] - Made the right sidebar collapsable</p>
         </div>
     </div>
 
     <script src="cohortRandomizer.js"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebarRight');
+            sidebar.classList.toggle('collapsed');
+        }
+    </script>
 </body>
-</html></div>
+</html>
