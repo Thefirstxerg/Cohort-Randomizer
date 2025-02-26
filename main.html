@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cohort Randomizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Add Names</h2>
+        <input type="text" id="nameInput" placeholder="Enter name">
+        <button onclick="addName()">Add Name</button>
+        <div class="name-list" id="nameList"></div>
+    </div>
+    <div class="container">
+        <h1>Cohort Randomizer</h1>
+        <button class="randomizer-button" onclick="randomizeCohort()">Randomize</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script src="cohortRandomizer.js">
+    </script>
+</body>
+</html>
