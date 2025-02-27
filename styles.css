@@ -133,6 +133,26 @@ p {
     transform: translateX(100%);
 }
 
+.result div {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.result h3 {
+    margin: 0;
+}
+#groupSizeContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+#groupSizeInput {
+    width: 70%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
 
 /* Dark Mode Toggle Switch */
 .switch {
@@ -148,6 +168,26 @@ p {
     height: 0;
   }
   
+  .switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+.switch-label {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+}
+.switch-label.active {
+    background-color: #007bff;
+    color: white;
+}
+
   .slider {
     position: absolute;
     cursor: pointer;
@@ -249,3 +289,14 @@ body.dark-mode .slider {
 body.dark-mode .slider:before {
     background-color: #e0e0e0;
 }
+body.dark-mode .switch-label {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-mode .switch-label.active {
+    background-color: #0056b3;
+    color: #e0e0e0;
+}
+

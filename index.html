@@ -6,7 +6,7 @@
     <title>Cohort Randomizer</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        
+
     </style>
 </head>
 <body>
@@ -25,6 +25,13 @@
     </div>
     <div class="container">
         <h1>Cohort Randomizer</h1>
+        <div class="switch-container">
+            <span class="switch-label" id="mode1Label" onclick="setRandomizeMode('mode1')">Mode: Pair</span>
+            <span class="switch-label" id="mode2Label" onclick="setRandomizeMode('mode2')">Mode: Groups</span>
+        </div>
+        <div id="groupSizeContainer" style="display: none;">
+            <input type="number" id="groupSizeInput" placeholder="Enter group size">
+        </div>
         <button class="randomizer-button" onclick="randomizeCohort()">Randomize</button>
         <div class="result" id="result"></div>
     </div>
@@ -41,11 +48,15 @@
             <p>[2025-02-26 18:13] - Made the right sidebar collapsable</p>
             <p>[2025-02-27 08:26] - Added a dark mode toggle</p>
             <p>[2025-02-27 08:27] - Made the updates sidebar collapsable</p>
+            <p>[2025-02-27 13:42] - Added a mode switcher to switch between pair and group modes</p>
+            <p>[2025-02-27 13:57] - Added a group size input for group mode</p>
         </div>
     </div>
 
     <script src="cohortRandomizer.js"></script>
+    <script src="main.js"></script>
     <script>
+       
     </script>
 </body>
 </html>

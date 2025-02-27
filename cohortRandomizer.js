@@ -1,32 +1,10 @@
-function addName(name = null) {
-    let nameInput = name || document.getElementById('nameInput').value.trim();
-    if (nameInput === '') {
-        alert('Please enter a name.');
-        return;
-    }
+let randomizeMode = 'mode1';
 
-    let nameList = document.getElementById('nameList');
-    let nameItem = document.createElement('div');
-    nameItem.className = 'name-item';
-    nameItem.textContent = nameInput;
-    nameItem.onclick = () => nameItem.classList.toggle('selected');
-    nameList.appendChild(nameItem);
-
-    if (!name) {
-        document.getElementById('nameInput').value = '';
-        saveNameToLocalStorage(nameInput);
-    }
-}
-
-function saveNameToLocalStorage(name) {
-    let names = JSON.parse(localStorage.getItem('names')) || [];
-    names.push(name);
-    localStorage.setItem('names', JSON.stringify(names));
-}
-
-function loadNamesFromLocalStorage() {
-    let names = JSON.parse(localStorage.getItem('names')) || [];
-    names.forEach(name => addName(name));
+function setRandomizeMode(mode) {
+    randomizeMode = mode;
+    document.getElementById('mode1Label').classList.toggle('active', mode === 'mode1');
+    document.getElementById('mode2Label').classList.toggle('active', mode === 'mode2');
+    document.getElementById('groupSizeContainer').style.display = mode === 'mode2' ? 'block' : 'none';
 }
 
 function randomizeCohort() {
@@ -38,6 +16,19 @@ function randomizeCohort() {
         return;
     }
 
+    if (randomizeMode === 'mode1') {
+        randomizePairs(cohort);
+    } else if (randomizeMode === 'mode2') {
+        const groupSize = parseInt(document.getElementById('groupSizeInput').value);
+        if (isNaN(groupSize) || groupSize <= 0) {
+            alert('Please enter a valid group size.');
+            return;
+        }
+        randomizeGroups(cohort, groupSize);
+    }
+}
+
+function randomizePairs(cohort) {
     // Shuffle the cohort array
     for (let i = cohort.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -72,36 +63,66 @@ function randomizeCohort() {
     }
 }
 
+function randomizeGroups(cohort, groupSize) {
+    const shuffledNames = cohort.sort(() => Math.random() - 0.5);
+    const groups = [];
+
+    while (shuffledNames.length) {
+        groups.push(shuffledNames.splice(0, groupSize));
+    }
+
+    // Distribute remaining names
+    for (let i = 0; i < shuffledNames.length; i++) {
+        groups[i % groups.length].push(shuffledNames[i]);
+    }
+
+    displayGroups(groups);
+}
+
+function displayGroups(groups) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = '';
+    groups.forEach((group, index) => {
+        const groupDiv = document.createElement('div');
+        groupDiv.innerHTML = `<h3>Group ${index + 1}</h3><p>${group.join(', ')}</p>`;
+        resultDiv.appendChild(groupDiv);
+    });
+}
+
+function addName(name = null) {
+    let nameInput = name || document.getElementById('nameInput').value.trim();
+    if (nameInput === '') {
+        alert('Please enter a name.');
+        return;
+    }
+
+    let nameList = document.getElementById('nameList');
+    let nameItem = document.createElement('div');
+    nameItem.className = 'name-item';
+    nameItem.textContent = nameInput;
+    nameItem.onclick = () => nameItem.classList.toggle('selected');
+    nameList.appendChild(nameItem);
+
+    if (!name) {
+        document.getElementById('nameInput').value = '';
+        saveNameToLocalStorage(nameInput);
+    }
+}
+
+function saveNameToLocalStorage(name) {
+    let names = JSON.parse(localStorage.getItem('names')) || [];
+    names.push(name);
+    localStorage.setItem('names', JSON.stringify(names));
+}
+
+function loadNamesFromLocalStorage() {
+    let names = JSON.parse(localStorage.getItem('names')) || [];
+    names.forEach(name => addName(name));
+}
+
 window.onload = () => {
     const defaultNames = ['Aidan', 'Cadee', 'Courtney', 'Ethan', 'Lesedi', 'Lindo', 'Marvelous', 'Mieke', 'Phomello', 'Pierre', 'Ronny', 'Sibu', 'Tom', 'Ulrich'];
     defaultNames.sort().forEach(name => addName(name));
     loadNamesFromLocalStorage();
+    setRandomizeMode(randomizeMode);
 };
-
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebarRight');
-    const button = document.querySelector('.toggle-button');
-    if (sidebar.classList.contains('collapsed')) {
-        sidebar.classList.remove('collapsed');
-        button.innerHTML = '&#9664;'; // Left arrow
-    } else {
-        sidebar.classList.add('collapsed');
-        button.innerHTML = '&#9654;'; // Right arrow
-    }
-}
-
-function toggleDarkMode() {
-    const isDarkMode = document.body.classList.toggle('dark-mode');
-    document.getElementById('darkModeSwitch').checked = isDarkMode;
-    localStorage.setItem('darkMode', isDarkMode);
-}
-
-function loadDarkMode() {
-    const isDarkMode = JSON.parse(localStorage.getItem('darkMode'));
-    if (isDarkMode) {
-        document.body.classList.add('dark-mode');
-        document.getElementById('darkModeSwitch').checked = true;
-    }
-}
-
-document.addEventListener('DOMContentLoaded', loadDarkMode);
